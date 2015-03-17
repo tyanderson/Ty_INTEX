@@ -1,0 +1,56 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="content">
+    <div class="content">
+        <div class="col-md-6">
+            <img src="/static${photo.image}" class="itemview_image"/>
+        </div>
+        <div class="col-md-6">
+            <h2>${item.name}</h2>
+            <p><b>Serial: </b>${item.serial_number}</p>
+            <p><b>Description: </b>${item.description}</p>
+            %if item.clothing_detail_id:
+                ${item.clothing_detail_id}
+            %endif
+            <p><b>Price: </b>$${item.price}</p>
+            <p><b>Quantity available: </b>${item.quantity_on_hand}</p>
+                    %if item.quantity_on_hand:
+                        %if item.quantity_on_hand>0:
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="qty" class="col-sm-2 control-label">Quantity</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="quantity" style="width:70px;">
+
+                                <option value="1" selected>1</option>
+                                %if item.quantity_on_hand>1:
+                                    <% i = 2 %>
+                                    %for j in range(item.quantity_on_hand-1):
+                                        <option value="${i}">${i}</option>
+                                        <% i+=1 %>
+                                        %if i==6:
+                                            <% break %>
+                                        %endif
+                                    %endfor
+                                %endif
+                            %else:
+                                <option value="0" selected>Out of stock</option>
+                            %endif
+                        %endif
+                        </select>
+                        <p style="display:none;" id="item_id">${item.id}</p>
+                    </div>
+                </div>
+                %if item.quantity_on_hand:
+                    %if item.quantity_on_hand>0:
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" class="btn btn-warning" data-item_id="${item.id}" id="add_to_cart">Add to Cart</button>
+                            </div>
+                        </div>
+                    %endif
+                %endif
+            </form>
+        </div>
+    </div>
+</%block>

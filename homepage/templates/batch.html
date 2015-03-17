@@ -1,0 +1,9 @@
+<%inherit file="base.htm" />
+
+<%block name="content">
+    <h1>Overdue Items:</h1>
+    %for rental in rentals:
+        <h4>Name: ${ rental.rentable_article.name }</h4>
+        <p style="padding-left: 20px;">Value: $${ rental.rentable_article.value }</p>
+    %endfor
+</%block>

@@ -1,0 +1,38 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="content">
+    <div class="col-md-3" id="left_col">
+        <%include file="/store/templates/left_col.html" />
+    </div>
+    <div class="col-md-9" id="items">
+        <div class="col-md-11" id="search_bar">
+            <ul class="nav navbar-nav navbar-right" id="navbar-right">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" id="search_input" class="form-control" placeholder="Search the store">
+                    </div>
+                    <button type="button" id="search_button" class="btn btn-primary">Search</button>
+                </form>
+            </ul>
+        </div>
+        %for item in catalog_items:
+            <div class="col-md-3 item_display">
+                <a href="/store/index.itemview/${item.id}">
+                    <img class="item_photo" src="/static${item.photo}"/>
+                    <br>
+                    <p class="product_name">
+                        <b>${item.name}</b>
+                    </p>
+                </a>
+                <br>
+                <p class="product_name">
+                    Sold by: ${item.manufacturer}
+                </p>
+                <br>
+                <p class="product_name">Qty on hand: ${item.quantity_on_hand}</p>
+                <br>
+                <p class="product_name">$${item.price}</p>
+            </div>
+        %endfor
+    </div>
+</%block>

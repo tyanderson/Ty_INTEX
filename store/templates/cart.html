@@ -1,0 +1,23 @@
+<%inherit file="/homepage/templates/base_ajax.htm" />
+
+<%block name="content">
+
+    <!-- Loop through each request.session['shopping_cart'] -->
+
+    %for i in item:
+        <div class="cart_item">
+            <div class="cart_item_data">
+                <img src="/static${ i.photo }" class="cart_thumbnail"/>
+            </div>
+            <div class="cart_item_data">
+                <p><b>Name: ${i.name}</b></p>
+                <p>Description: ${i.description}</p>
+                <p>Price: ${ i.price }</p>
+                <p>Quantity: ${ request.session['shopping_cart'][str(i.id)] }</p>
+                <p class="delete" data-item_id="${i.id}"><a href="#">Delete</a></p>
+            </div>
+        </div>
+        <hr>
+    %endfor
+
+</%block>

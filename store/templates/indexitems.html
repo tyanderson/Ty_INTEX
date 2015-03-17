@@ -1,0 +1,12 @@
+%for item in catalog_items:
+    <div class="col-md-3 item_display">
+        <a href="/store/index.itemview/${item.id}">
+            <img class="item_photo" src="/static${item.photo}"/>
+            <br>
+            <p class="product_name">
+                ${item.name}
+            </p>
+        </a>
+        <p class="price">$${item.price}</p>
+    </div>
+%endfor

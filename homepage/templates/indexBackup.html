@@ -1,0 +1,30 @@
+<%inherit file="base.htm" />
+
+<%block name="leftMenu">
+<div class="col-md-3">
+    <div class="leftContent">
+        <button class="btn btn-primary" type="button">
+          New Items <span class="badge">4</span>
+        </button>
+        <p><a href="#">Men</a></p>
+        <p><a href="#">Women</a></p>
+        <p><a href="#">Children</a></p>
+        <p><a href="#">Artifacts</a></p>
+    </div>
+</div>
+</%block>
+
+<%block name="content">
+<div class="col-md-9 centerContent">
+    <h1>Store</h1>
+    %for i in range(7):
+        <div class="col-md-3">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Pumpkin-Pie-Slice.jpg/599px-Pumpkin-Pie-Slice.jpg" height="100px" width="100px">
+            <br>
+            <p>$
+                ${ i+10 }
+            </p>
+        </div>
+    %endfor
+</div>
+</%block>

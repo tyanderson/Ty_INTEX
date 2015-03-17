@@ -1,0 +1,15 @@
+<%inherit file="base.htm" />
+
+<%block name="mainContent">
+<div class="col-md-12 centerContent">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>Acount Information</h1>
+        <h4>Name: ${user.first_name} ${user.last_name}</h4>
+        <h4>Username: ${user.username}</h4>
+        <h4>Email: ${user.email}</h4>
+        <p><a href="/changepassword">Change Password</a></p>
+        <p><a href="/users.edit2/${user.id}">Edit Account</a></p>
+        <p><a href="/users.delete/${user.id}/logout">Delete Account</a></p>
+    </div>
+</div>
+</%block>

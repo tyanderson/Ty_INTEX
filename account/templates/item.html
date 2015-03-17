@@ -1,0 +1,11 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="content">
+    <div class="content">
+        %print("####################" + request.get_full_path())
+        {{ "@@@@@@@@@@@@@@@@@@@" }}
+        %for item in catalog_items:
+            <div>${item.name}</div>
+        %endfor
+    </div>
+</%block>

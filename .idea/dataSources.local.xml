@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Django default" uuid="8b0a110e-3a3c-4649-b6d6-9f871664589b">
+      <user-name>postgres</user-name>
+      <user-password>dfda</user-password>
+      <schema-pattern>Sprint2.pg_catalog Sprint2.public</schema-pattern>
+      <default-schemas>Sprint2.pg_catalog Sprint2.public</default-schemas>
+    </data-source>
+  </component>
+</project>

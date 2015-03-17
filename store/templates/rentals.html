@@ -1,0 +1,19 @@
+<%inherit file="/homepage/templates/base.htm" />
+
+<%block name="content">
+    <div class="content">
+        <div class="col-md-8" id="items">
+            %for item in rentable_articles:
+                <div class="col-md-3 item_display">
+                    <a href="/store/index.itemview/${item.id}">
+                        <img class="item_photo" src="/static${item.photo}"/>
+                        <br>
+                        <p class="product_name">
+                            <b>${item.name}</b>
+                        </p>
+                    </a>
+                </div>
+            %endfor
+        </div>
+    </div>
+</%block>

@@ -1,0 +1,280 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## set up a StaticRenderer object to enable the CSS/JS automatic inclusion magic.
+<%! from django_mako_plus.controller import static_files %>
+<%  static_renderer = static_files.StaticRenderer(self) %>
+
+<html !DOCTYPE>
+<html>
+    <meta charset="UTF-8">
+    <head>
+        <title>Colonial Heritage Foundation</title>
+
+        ## add any site-wide scripts or CSS here; for example, jquery:
+        <script src="/static/homepage/scripts/jquery.js"></script>
+        <script src="/static/homepage/scripts/jquery.form.min.js"></script>
+
+        ## render the css with the same name as this page
+        ${ static_renderer.get_template_css(request, context)  }
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/static/homepage/styles/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="/static/homepage/styles/Bootstrap-theme.css">
+
+        <!-- Latest compiled and minified CSS -->
+        <!-- glyphicons -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/static/homepage/scripts/Bootstrap.js"></script>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="http://wangweiqiang.net/demo/MagicNote/images/quill.png" />
+
+        %if request.user.groups.filter(name="Admin"):
+            %if request.get_full_path()=="/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index.htm":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %endif
+        %elif request.user.groups.filter(name="Manager"):
+            %if request.get_full_path()=="/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index/":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %elif request.get_full_path()=="/homepage/index.htm":
+                <meta http-equiv="REFRESH" content="0;url=http://localhost:8000/homepage/users">
+            %endif
+        %endif
+    </head>
+    <body>
+        <header>
+        <%block name="header">
+            <!-- Navigation Bar -->
+            <nav class="navbar navbar-inverse">
+                <!-- Cart corner -->
+                <div class="col-md-offset-10 col-md-2" id="cart_corner">
+                    <div class="col-sm-9">
+                        <a href="#" id="cart_button">
+                            <div class="cart">
+                                <p>
+                                    %if 'shopping_cart' in request.session:
+                                        ${len(request.session['shopping_cart'])} Items
+                                    %else:
+                                        0 Items
+                                    %endif
+                                </p>
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                            </div>
+                        </a>
+                        <div id="login_corner">
+                            %if request.user.is_authenticated():
+                                <p>
+                                    <a href="/homepage/account" id="hello" class="login_link">
+                                        Hello, ${request.user.first_name}
+                                    </a>
+                                </p>
+                                <br>
+                                <p><a href="/homepage/login.logoutUser" id="logout" class="login_link">Logout</a></p>
+                            %else:
+                                <p><a href="#" class="login_link" id="login">Login</a></p>
+                                <p><a href="/homepage/users.create" class="login_link">Create Account</a></p>
+                            %endif
+                        </div>
+                    </div>
+                </div>
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/homepage/index" id="logo">
+                        <img src="${ STATIC_URL }homepage/media/quill.png" width="150px" />
+                        <span id="logo_name" style="position:relative;left:-50px;">CHF</span>
+                        <!--<img src="${ STATIC_URL }homepage/media/CHFLogo.png" />-->
+                    </a>
+                 </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav items">
+                        %if request.user.groups.filter(name="Admin"):
+                        <!-- Users link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="users":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/users" class="menuitem">Users <span class="sr-only">(current)</span></a></li>
+                        <!-- Inventory link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="inventory":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/inventory" class="menuitem">Inventory <span class="sr-only">(current)</span></a></li>
+                        <!-- Rentals link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="rentableItems":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/rentableItems" class="menuitem">Rentable Items <span class="sr-only">(current)</span></a></li>
+                        <!-- Events link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="events":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/events" class="menuitem">Events <span class="sr-only">(current)</span></a></li>
+                        %elif request.user.groups.filter(name="Manager"):
+                        <!-- Users link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="users":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/users" class="menuitem">Users <span class="sr-only">(current)</span></a></li>
+                        <!-- Inventory link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="inventory":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/inventory" class="menuitem">Inventory <span class="sr-only">(current)</span></a></li>
+                        <!-- Rentals link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="rentableItems":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/rentableItems" class="menuitem">Rentable Items <span class="sr-only">(current)</span></a></li>
+                        <!-- Events link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="events":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/events" class="menuitem">Events <span class="sr-only">(current)</span></a></li>
+                        %else:
+                        <!-- Store link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_app=="store":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/store/index" class="menuitem">Store <span class="sr-only">(current)</span></a></li>
+                        <!-- About link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="about":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/about" class="menuitem">About <span class="sr-only">(current)</span></a></li>
+                        <!-- Terms link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="terms":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/terms" class="menuitem">Terms</a></li>
+                        <!-- Contact link ----------------------------------------------------------------------------------------->
+                            %if request.dmp_router_page=="contact":
+                                ${"<li class='active'>"}
+                            %else:
+                                ${"<li>"}
+                            %endif
+                            <a href="/homepage/contact" class="menuitem">Contact</a></li>
+                        %endif
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </%block>
+        </header>
+
+        <!-- Contents -->
+        <div class="container content">
+            <!-- Left Content -->
+            <%block name="leftMenu"/>
+
+            <!-- Center Content -->
+            <%block name="content"/>
+
+            <!-- Main Content -->
+            <%block name="mainContent"/>
+            <!-- Login Modal -->
+            <div class="modal fade" id="login_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form method="POST" action="/homepage/login" class="form-horizontal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Login</h4>
+                            </div>
+                            <div class="modal-body">
+                                <img src="/static/homepage/media/loading.gif" class="loading"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Cart Modal -->
+            <div class="modal fade" id="cart_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form method="POST" action="/homepage/login" class="form-horizontal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Shopping Cart</h4>
+                            </div>
+                            <div class="modal-body">
+                                <img src="/static/homepage/media/loading.gif" class="loading"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <a href="/store/checkout"><button type="button" class="btn btn-primary">Checkout</button></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <%block name="footer">
+                    <p>Copyright 2015, All Rights Reserved</p>
+                    <p>Colonial Heritage Foundation</p>
+                    <p>Website by <a href="mailto:ty.anderson.3@gmail.com">Ty Anderson</a></p>
+                </%block>
+            </div>
+        </footer>
+
+        ## render the JS with the same name as this page
+        ${ static_renderer.get_template_js(request, context)  }
+
+    </body>
+</html>
